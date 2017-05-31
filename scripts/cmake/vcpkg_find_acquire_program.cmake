@@ -1,3 +1,37 @@
+## # vcpkg_find_acquire_program
+##
+## Download or find a well-known tool.
+##
+## ## Usage
+## ```cmake
+## vcpkg_find_acquire_program(<VAR>)
+## ```
+## ## Parameters
+## ### VAR
+## This variable specifies both the program to be acquired as well as the out parameter that will be set to the path of the program executable.
+##
+## ## Notes
+## The current list of programs includes:
+##
+## - 7Z
+## - BISON
+## - FLEX
+## - PERL
+## - PYTHON2
+## - PYTHON3
+## - JOM
+## - MESON
+## - NASM
+## - NINJA
+## - YASM
+##
+## Note that msys2 has a dedicated helper function: [`vcpkg_acquire_msys`](vcpkg_acquire_msys.md).
+##
+## ## Examples
+##
+## * [ffmpeg](https://github.com/Microsoft/vcpkg/blob/master/ports/ffmpeg/portfile.cmake)
+## * [openssl](https://github.com/Microsoft/vcpkg/blob/master/ports/openssl/portfile.cmake)
+## * [qt5](https://github.com/Microsoft/vcpkg/blob/master/ports/qt5/portfile.cmake)
 function(vcpkg_find_acquire_program VAR)
   if(${VAR} AND NOT ${VAR} MATCHES "-NOTFOUND")
     return()
@@ -84,6 +118,18 @@ function(vcpkg_find_acquire_program VAR)
     set(URL "https://github.com/mesonbuild/meson/archive/0.40.1.zip")
     set(ARCHIVE "meson-0.40.1.zip")
     set(HASH 4c1d07f32d527859f762c34de74d31d569573fc833335ab9652ed38d1f9e64b49869e826527c28a6a07cb8e594fd5c647b34aa95e626236a2707f75df0a2d435)
+   elseif(VAR MATCHES "FLEX")
+     set(PROGNAME win_flex)
+     set(PATHS ${DOWNLOADS}/tools/winflexbison)
+     set(URL "https://sourceforge.net/projects/winflexbison/files/win_flex_bison-2.5.9.zip/download")
+     set(ARCHIVE "win_flex_bison-2.5.9.zip")
+     set(HASH 9580f0e46893670a011645947c1becda69909a41a38bb4197fe33bd1ab7719da6b80e1be316f269e1a4759286870d49a9b07ef83afc4bac33232bd348e0bc814)
+  elseif(VAR MATCHES "BISON")
+     set(PROGNAME win_bison)
+     set(PATHS ${DOWNLOADS}/tools/winflexbison)
+     set(URL "https://sourceforge.net/projects/winflexbison/files/win_flex_bison-2.5.9.zip/download")
+     set(ARCHIVE "win_flex_bison-2.5.9.zip")
+     set(HASH 9580f0e46893670a011645947c1becda69909a41a38bb4197fe33bd1ab7719da6b80e1be316f269e1a4759286870d49a9b07ef83afc4bac33232bd348e0bc814)
   else()
     message(FATAL "unknown tool ${VAR} -- unable to acquire.")
   endif()
